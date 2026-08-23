@@ -1,0 +1,8 @@
+{
+  "name": " netlify dominio: Guía de Dietoterapia China ENG",
+  "description": "Sales and presentation page for the complete Chinese Diet Therapy manual for healthcare professionals, translated into English",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

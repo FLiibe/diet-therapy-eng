@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Circular JSON Stringify Protection Guard -->
+    <script>
+      (function() {
+        var originalStringify = JSON.stringify;
+        JSON.stringify = function(value, replacer, space) {
+          var seen = [];
+          try {
+            return originalStringify(value, function(key, val) {
+              if (typeof val === "object" && val !== null) {
+                if (seen.indexOf(val) !== -1) {
+                  return "[Circular]";
+                }
+                seen.push(val);
+              }
+              if (replacer) {
+                return replacer(key, val);
+              }
+              return val;
+            }, space);
+          } catch (err) {
+            return "[Circular]";
+          }
+        };
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chinese Diet Therapy Manual</title>
+    
+    <!-- SEO & Metadata -->
+    <meta name="description" content="Comprehensive Chinese Diet Therapy Guide for healthcare professionals. Practical clinical guidelines to treat your patients naturally." />
+    <meta name="keywords" content="chinese diet therapy, traditional chinese medicine, tcm, energetic nutrition, acusalud" />
+    <meta name="author" content="AcuSalud" />
+
+    <!-- Open Graph / Facebook Link Preview Metadata -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Chinese Diet Therapy Manual - Complete Clinical Guide" />
+    <meta property="og:description" content="Get lifetime access to clinical guidelines and therapeutic recipes to treat your patients and recommend foods based on traditional TCM energetic diagnosis." />
+    <meta property="og:image" content="https://res.cloudinary.com/dgncwrnvw/image/upload/v1787247786/ChatGPT_Image_20_ago_2026_14_41_15_1_rjxjb2.webp" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Complete Chinese Diet Therapy Manual and Exclusive Bonuses" />
+
+    <!-- Twitter Link Preview Metadata -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Chinese Diet Therapy Manual - Complete Clinical Guide" />
+    <meta name="twitter:description" content="Get lifetime access to clinical guidelines and therapeutic recipes to treat your patients according to TCM diagnosis." />
+    <meta name="twitter:image" content="https://res.cloudinary.com/dgncwrnvw/image/upload/v1787247786/ChatGPT_Image_20_ago_2026_14_41_15_1_rjxjb2.webp" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="/src/assets/images/acusalud_logo_icon_1783086740606.jpg" />
+
+    <!-- High-priority Image Preloads for Mobile Performance -->
+    <link rel="preload" href="https://res.cloudinary.com/dgncwrnvw/image/upload/v1787247786/ChatGPT_Image_20_ago_2026_14_41_16_2_xvhzlo.webp" as="image" />
+    <link rel="preload" href="https://res.cloudinary.com/dgncwrnvw/image/upload/v1787247786/ChatGPT_Image_20_ago_2026_14_41_15_1_rjxjb2.webp" as="image" />
+    <link rel="preload" href="https://i.ibb.co/hJZNX1mh/Chat-GPT-Image-15-lug-2026-22-41-37.png" as="image" />
+
+    <!-- UTMify Pixel Script -->
+    <script>
+      window.pixelId = "6a480a6e50d141350b894a16";
+      var a = document.createElement("script");
+      a.setAttribute("async", "");
+      a.setAttribute("defer", "");
+      a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
+      document.head.appendChild(a);
+    </script>
+    <!-- UTMify Latest UTMS Script -->
+    <script
+      src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+      data-utmify-prevent-subids
+      async
+      defer
+    ></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
