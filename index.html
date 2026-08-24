@@ -53,10 +53,15 @@
     <!-- Favicon -->
     <link rel="icon" type="image/jpeg" href="/src/assets/images/acusalud_logo_icon_1783086740606.jpg" />
 
-    <!-- High-priority Image Preloads for Mobile Performance -->
-    <link rel="preload" href="https://res.cloudinary.com/dgncwrnvw/image/upload/v1787247786/ChatGPT_Image_20_ago_2026_14_41_16_2_xvhzlo.webp" as="image" />
-    <link rel="preload" href="https://res.cloudinary.com/dgncwrnvw/image/upload/v1787247786/ChatGPT_Image_20_ago_2026_14_41_15_1_rjxjb2.webp" as="image" />
-    <link rel="preload" href="https://i.ibb.co/hJZNX1mh/Chat-GPT-Image-15-lug-2026-22-41-37.png" as="image" />
+    <!-- Resource Hints & Preconnect for High Performance -->
+    <link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
+    <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+    <link rel="preconnect" href="https://cdn.utmify.com.br" />
+
+    <!-- High-priority Image Preloads for Instant Mobile Performance -->
+    <link rel="preload" href="https://res.cloudinary.com/dgncwrnvw/image/upload/v1787247786/ChatGPT_Image_20_ago_2026_14_41_16_2_xvhzlo.webp" as="image" type="image/webp" />
+    <link rel="preload" href="https://res.cloudinary.com/dgncwrnvw/image/upload/v1787598004/ChatGPT_Image_24_ago_2026_15_03_23_bdkh6l.avif" as="image" type="image/avif" />
+    <link rel="preload" href="https://res.cloudinary.com/dgncwrnvw/image/upload/v1787598004/ChatGPT_Image_24_ago_2026_15_03_23_wxbqyh.webp" as="image" type="image/webp" />
 
     <!-- UTMify Pixel Script -->
     <script>

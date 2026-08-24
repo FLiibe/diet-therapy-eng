@@ -26,10 +26,14 @@ import MovementTabs from "./components/MovementTabs";
 import FAQAccordion from "./components/FAQAccordion";
 import HotmartSalesFunnel from "./components/HotmartSalesFunnel";
 
-// Import generated book bundle image (optimized with AVIF and WebP formats)
-const bundleImgAvif = "https://res.cloudinary.com/dgncwrnvw/image/upload/v1787247786/ChatGPT_Image_20_ago_2026_14_41_15_1_br8pkb.avif";
-const bundleImgWebp = "https://res.cloudinary.com/dgncwrnvw/image/upload/v1787247786/ChatGPT_Image_20_ago_2026_14_41_15_1_rjxjb2.webp";
-const bundleImgPng = "https://res.cloudinary.com/dgncwrnvw/image/upload/v1787247786/ChatGPT_Image_20_ago_2026_14_41_15_1_rjxjb2.webp";
+// Import generated book bundle image (optimized with AVIF and WebP formats for upsell)
+const bundleImgAvif = "https://res.cloudinary.com/dgncwrnvw/image/upload/v1787598004/ChatGPT_Image_24_ago_2026_15_03_23_bdkh6l.avif";
+const bundleImgWebp = "https://res.cloudinary.com/dgncwrnvw/image/upload/v1787598004/ChatGPT_Image_24_ago_2026_15_03_23_wxbqyh.webp";
+const bundleImgPng = "https://res.cloudinary.com/dgncwrnvw/image/upload/v1787598004/ChatGPT_Image_24_ago_2026_15_03_23_wxbqyh.webp";
+
+// Import downsell image (2-book bundle for downsell)
+const downsellImgAvif = "https://res.cloudinary.com/dgncwrnvw/image/upload/v1787599734/ChatGPT_Image_24_ago_2026_16_26_22_kknwlr.avif";
+const downsellImgWebp = "https://res.cloudinary.com/dgncwrnvw/image/upload/v1787599734/ChatGPT_Image_24_ago_2026_16_26_22_o2hrdq.webp";
 
 const protocolImgAvif = "https://res.cloudinary.com/dgncwrnvw/image/upload/v1784985719/ChatGPT_Image_25_lug_2026_10_19_01_agnrr5.avif";
 const protocolImgWebp = "https://res.cloudinary.com/dgncwrnvw/image/upload/v1784985785/ChatGPT_Image_25_lug_2026_10_19_01_rm0ob4.webp";
@@ -71,7 +75,7 @@ export default function App() {
     const path = window.location.pathname;
     
     // Check if they are accessing a protected path on initial render
-    if (path === "/upsell" || path === "/downsell" || path === "/gracias") {
+    if (path === "/upsell" || path === "/downsell" || path === "/thankyou") {
       const hasActiveSession = sessionStorage.getItem("funnel_session") === "active";
       const urlParams = new URLSearchParams(window.location.search);
       const hasHotmartParams = 
@@ -101,7 +105,7 @@ export default function App() {
     const handlePopState = () => {
       const path = window.location.pathname;
       // Also protect on back/forward navigation
-      if (path === "/upsell" || path === "/downsell" || path === "/gracias") {
+      if (path === "/upsell" || path === "/downsell" || path === "/thankyou") {
         const hasActiveSession = sessionStorage.getItem("funnel_session") === "active";
         const urlParams = new URLSearchParams(window.location.search);
         const hasHotmartParams = 
@@ -228,9 +232,9 @@ export default function App() {
     }
   };
 
-  if (currentPath === "/gracias") {
+  if (currentPath === "/thankyou") {
     return (
-      <div className="min-h-screen bg-sand-light antialiased font-sans text-gray-800 flex flex-col justify-between" id="gracias-page">
+      <div className="min-h-screen bg-sand-light antialiased font-sans text-gray-800 flex flex-col justify-between" id="thankyou-page">
         
         {/* HEADER BAR */}
         <div className="bg-[#09261a] text-white py-4 px-6 text-center shadow-md">
@@ -306,128 +310,96 @@ export default function App() {
             Don't limit your knowledge to pure manual theory. Get the <strong className="text-red-700">Acupressure Point Map</strong> right now at half price and receive the <strong className="text-[#09261a]">Gua Sha & Facial Self-Massage Guide</strong> (19 pages) as an immediate free gift. Two practical tools to enhance wellness naturally!
           </p>
 
-          {/* Side-by-side or stacked container for BOTH products */}
-          <div className="w-full max-w-xl bg-white rounded-3xl border-2 border-red-100 p-6 sm:p-8 shadow-2xl mb-6 text-left">
-            <div className="inline-flex items-center gap-1 bg-red-600 text-white text-[10px] sm:text-xs font-black px-3 py-1 rounded-full uppercase tracking-widest mb-4">
-              MAIN PRODUCT WITH 50% OFF
-            </div>
-            <h3 className="font-serif text-xl sm:text-2xl font-bold text-red-800 mb-4 tracking-wide uppercase">
-              📍 Acupressure Point Map
-            </h3>
-
-            {/* Main Book Mockup Image - MATCHES EXACTLY THE MAIN HERO LAYOUT AND SIZES */}
-            <div className="relative max-w-sm mx-auto mb-6 group rounded-2xl overflow-hidden shadow-xl border-4 border-gray-100 transition-transform duration-500 hover:scale-[1.01] min-h-[180px] sm:min-h-[260px] flex items-center justify-center bg-rose-50/10" id="downsell-book-mockup-wrapper">
-              {/* Elegant Skeleton Loader */}
-              {!protocolImageLoaded && (
-                <div className="absolute inset-0 flex flex-col items-center justify-center bg-rose-50/30 rounded-2xl animate-pulse">
-                  <div className="w-8 h-8 rounded-full border-4 border-red-300 border-t-red-600 animate-spin mb-2"></div>
-                  <span className="text-[10px] font-mono text-red-800 tracking-wider">Loading protocol...</span>
-                </div>
-              )}
-              <picture className={`w-full transition-opacity duration-700 ease-in-out ${protocolImageLoaded ? "opacity-100" : "opacity-0"}`}>
-                <source srcSet={protocolImgAvif} type="image/avif" />
-                <source srcSet={protocolImgWebp} type="image/webp" />
+          {/* SINGLE DOWNSELL HERO IMAGE */}
+          <div className="w-full max-w-xl mb-8 text-center" id="downsell-book-mockup-wrapper">
+            <div className="relative max-w-lg mx-auto rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-rose-50/10">
+              <picture className="w-full">
+                <source srcSet={downsellImgAvif} type="image/avif" />
+                <source srcSet={downsellImgWebp} type="image/webp" />
                 <img 
-                  src={protocolImgPng} 
-                  alt="Acupressure Point Map" 
+                  src={downsellImgWebp} 
+                  alt="Acupressure Point Map & Gua Sha Guide Bundle" 
                   className="w-full h-auto object-cover"
                   referrerPolicy="no-referrer"
-                  onLoad={() => setProtocolImageLoaded(true)}
                 />
               </picture>
             </div>
+          </div>
 
-            <div className="space-y-3.5 text-xs sm:text-sm text-gray-600">
+          {/* 1. Essential Acupressure Point Map */}
+          <div className="w-full max-w-xl bg-white rounded-3xl border border-sand-dark p-6 sm:p-8 shadow-md mb-6 text-left">
+            <div className="inline-flex items-center gap-1.5 bg-emerald-700 text-white text-[10px] sm:text-xs font-black px-3.5 py-1.5 rounded-full uppercase tracking-widest mb-3 shadow-sm">
+              MAIN PRODUCT WITH 50% OFF
+            </div>
+            <h3 className="font-serif text-xl sm:text-2xl font-bold text-forest-dark mb-3">
+              Essential Acupressure Point Map
+            </h3>
+
+            <div className="space-y-2.5 text-xs sm:text-sm text-gray-700">
               <div className="flex items-start gap-2.5">
-                <span className="text-red-600 font-bold text-base shrink-0">✔</span>
+                <span className="text-emerald-600 font-bold shrink-0">✓</span>
                 <div>
-                  <strong className="text-red-950">18 Illustrated Points Atlas:</strong> Discover the exact location, energetic function, and safety notes for each point.
+                  <strong className="text-forest-dark">18 Illustrated Points Atlas:</strong> Discover the exact location, energetic function, and safety notes for each point.
                 </div>
               </div>
               
               <div className="flex items-start gap-2.5">
-                <span className="text-red-600 font-bold text-base shrink-0">✔</span>
+                <span className="text-emerald-600 font-bold shrink-0">✓</span>
                 <div>
-                  <strong className="text-red-950">6 Complete Protocols:</strong> One for each imbalance pattern from the main Diet Therapy manual.
+                  <strong className="text-forest-dark">6 Complete Protocols:</strong> One for each imbalance pattern from the main Diet Therapy manual.
                 </div>
               </div>
 
               <div className="flex items-start gap-2.5">
-                <span className="text-red-600 font-bold text-base shrink-0">✔</span>
+                <span className="text-emerald-600 font-bold shrink-0">✓</span>
                 <div>
-                  <strong className="text-red-950">Secure Lifetime Access:</strong> Digital downloadable format forever on your phone, tablet, or computer.
+                  <strong className="text-forest-dark">Secure Lifetime Access:</strong> Digital downloadable format forever on your phone, tablet, or computer.
                 </div>
               </div>
             </div>
           </div>
 
           {/* Plus sign */}
-          <div className="flex flex-col items-center justify-center my-4">
-            <span className="text-4xl font-black text-rose-500 animate-bounce">+</span>
+          <div className="flex flex-col items-center justify-center my-2">
+            <span className="text-3xl font-black text-emerald-700 animate-bounce">+</span>
           </div>
 
-          {/* FREE GIFT: Gua Sha Guide Card */}
-          <div className="w-full max-w-xl bg-[#09261a] text-white rounded-3xl border-2 border-emerald-800/40 p-6 sm:p-8 shadow-2xl mb-8 text-left">
-            {/* BADGE */}
-            <div className="inline-flex items-center gap-1.5 bg-emerald-500 text-white text-[10px] sm:text-xs font-black px-3.5 py-1.5 rounded-full uppercase tracking-widest mb-4 shadow-sm animate-pulse">
-              <Sparkles className="w-3.5 h-3.5" /> EXCLUSIVE GIFT INCLUDED 100% FREE!
+          {/* 2. FREE GIFT: Gua Sha Guide Card */}
+          <div className="w-full max-w-xl bg-white rounded-3xl border border-sand-dark p-6 sm:p-8 shadow-md mb-8 text-left">
+            <div className="inline-flex items-center gap-1.5 bg-emerald-700 text-white text-[10px] sm:text-xs font-black px-3.5 py-1.5 rounded-full uppercase tracking-widest mb-3 shadow-sm">
+              <Sparkles className="w-3.5 h-3.5" /> FREE COMPANION GIFT
             </div>
 
-            <h3 className="font-serif text-xl sm:text-2xl font-bold text-white mb-1.5 tracking-wide uppercase">
-              🌸 Gua Sha & Facial Self-Massage Guide
+            <h3 className="font-serif text-xl sm:text-2xl font-bold text-forest-dark mb-3">
+              FREE GIFT: Facial Gua Sha &amp; Self-Massage Guide
             </h3>
-            <p className="text-xs sm:text-sm text-emerald-200/90 italic mb-6 font-medium">
-              19 complete pages ready to download • At no additional cost
-            </p>
 
-            {/* Gua Sha Book Mockup Image */}
-            <div className="relative max-w-sm mx-auto mb-6 group rounded-2xl overflow-hidden shadow-xl border-4 border-emerald-900 transition-transform duration-500 hover:scale-[1.01] min-h-[180px] sm:min-h-[260px] flex items-center justify-center bg-emerald-950/20">
-              {!guashaImageLoaded && (
-                <div className="absolute inset-0 flex flex-col items-center justify-center bg-emerald-950/40 rounded-2xl animate-pulse">
-                  <div className="w-8 h-8 rounded-full border-4 border-emerald-300 border-t-emerald-600 animate-spin mb-2"></div>
-                  <span className="text-[10px] font-mono text-emerald-200 tracking-wider">Loading gift...</span>
-                </div>
-              )}
-              <picture className={`w-full transition-opacity duration-700 ease-in-out ${guashaImageLoaded ? "opacity-100" : "opacity-0"}`}>
-                <source srcSet={guashaImgAvif} type="image/avif" />
-                <source srcSet={guashaImgWebp} type="image/webp" />
-                <img 
-                  src={guashaImgAvif} 
-                  alt="Gua Sha and Facial Self-Massage Guide" 
-                  className="w-full h-auto object-cover"
-                  referrerPolicy="no-referrer"
-                  onLoad={() => setGuashaImageLoaded(true)}
-                />
-              </picture>
-            </div>
-
-            {/* Gua Sha Content List */}
-            <div className="space-y-3 text-xs sm:text-sm text-emerald-50/95">
+            <div className="space-y-2.5 text-xs sm:text-sm text-gray-700">
               <div className="flex items-start gap-2.5">
-                <span className="text-emerald-400 font-bold text-base shrink-0">✔</span>
+                <span className="text-emerald-600 font-bold shrink-0">✓</span>
                 <div>
-                  <strong className="text-white">Complete Core Technique:</strong> Exact angle, pressure, and practical alternatives using only your hands without buying anything.
+                  <strong className="text-forest-dark">Complete Core Technique:</strong> Exact angle, pressure, and practical alternatives using only your hands without buying anything.
                 </div>
               </div>
 
               <div className="flex items-start gap-2.5">
-                <span className="text-emerald-400 font-bold text-base shrink-0">✔</span>
+                <span className="text-emerald-600 font-bold shrink-0">✓</span>
                 <div>
-                  <strong className="text-white">6-Zone Facial Map:</strong> Clear diagrams with stroke directions for neck, jawline, cheeks, eyes, forehead, and brow area.
+                  <strong className="text-forest-dark">6-Zone Facial Map:</strong> Clear diagrams with stroke directions for neck, jawline, cheeks, eyes, forehead, and brow area.
                 </div>
               </div>
 
               <div className="flex items-start gap-2.5">
-                <span className="text-emerald-400 font-bold text-base shrink-0">✔</span>
+                <span className="text-emerald-600 font-bold shrink-0">✓</span>
                 <div>
-                  <strong className="text-white">6 Pattern-Based Routines:</strong> Spleen (anti-inflammatory), Yang (warming), Yin (hydrating), Liver (jaw tension), Dampness (drainage), and Heat (cooling).
+                  <strong className="text-forest-dark">6 Pattern-Based Routines:</strong> Spleen (anti-inflammatory), Yang (warming), Yin (hydrating), Liver (jaw tension), Dampness (drainage), and Heat (cooling).
                 </div>
               </div>
 
               <div className="flex items-start gap-2.5">
-                <span className="text-emerald-400 font-bold text-base shrink-0">✔</span>
+                <span className="text-emerald-600 font-bold shrink-0">✓</span>
                 <div>
-                  <strong className="text-white">Safety and Practice:</strong> Contraindications (active acne, fillers), common mistakes to avoid, suggested weekly schedule, and tracking journal.
+                  <strong className="text-forest-dark">Safety and Practice:</strong> Contraindications (active acne, fillers), common mistakes to avoid, suggested weekly schedule, and tracking journal.
                 </div>
               </div>
             </div>
@@ -492,190 +464,164 @@ export default function App() {
           </span>
         </div>
 
-        {/* CONTENT CONTAINER - aligned to top */}
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 md:px-8 pt-4 sm:pt-6 pb-12 flex-1 flex flex-col items-center justify-start">
+        {/* CONTENT CONTAINER */}
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 md:px-8 pt-4 sm:pt-6 pb-12 flex-1 flex flex-col items-center justify-start text-center">
           
-          {/* THANK YOU / SUCCESS NOTICE */}
-          <div className="w-full max-w-3xl bg-emerald-50/80 border border-emerald-200 rounded-xl py-2 px-4 text-center mb-6 shadow-xs animate-in fade-in duration-300">
-            <div className="flex items-center justify-center gap-2 text-emerald-800 text-xs">
-              <span>🎉</span>
-              <p className="font-sans font-medium text-emerald-900">
-                <strong>Thank you for your purchase!</strong> Your order is already being sent to your email. Do not close this page—check out this exclusive recommended addition:
-              </p>
+          {/* PURCHASE CONFIRMED BADGE & NOTICE */}
+          <div className="w-full max-w-2xl bg-emerald-50 border border-emerald-200 rounded-2xl p-4 sm:p-5 mb-8 shadow-xs">
+            <div className="flex items-center justify-center gap-2 text-emerald-800 font-extrabold text-sm sm:text-base tracking-wide uppercase mb-1">
+              <span>✓</span> YOUR PURCHASE IS CONFIRMED
             </div>
+            <p className="text-gray-700 text-xs sm:text-sm">
+              Your Chinese Diet Therapy materials are being sent to your email.
+            </p>
           </div>
 
-          {/* MAIN TITLES */}
-          <h1 className="font-serif text-2xl sm:text-3xl md:text-5xl text-forest-dark text-center tracking-tight leading-tight mb-2 font-bold px-2">
-            Acupressure Point Map + EXCLUSIVE GIFT: Gua Sha & Facial Self-Massage Guide
+          {/* MAIN HEADLINE & SUBHEAD */}
+          <h1 className="font-serif text-2xl sm:text-3xl md:text-5xl text-forest-dark tracking-tight leading-tight mb-4 font-bold px-2">
+            Wait — Would You Prefer a Smaller Option?
           </h1>
-          <p className="text-gold-dark italic font-semibold text-base sm:text-lg md:text-xl text-center mb-4 md:mb-6">
-            18 illustrated points plus immediate gift of facial self-massage with Gua Sha
+          <p className="text-gray-700 text-sm sm:text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+            If you do not need the complete toolkit, you can still add the <strong className="text-forest-dark font-bold">Essential Acupressure Point Map</strong> and receive the <strong className="text-emerald-800 font-bold">Facial Gua Sha &amp; Self-Massage Guide</strong> as a complimentary gift.
           </p>
 
-          <p className="text-xs sm:text-sm md:text-base text-gray-600 leading-relaxed text-center max-w-2xl mx-auto mb-6 md:mb-10 px-2">
-            Complement your Chinese Diet Therapy program with the <strong className="text-emerald-700">Acupressure Point Map</strong> and receive the <strong className="text-[#09261a]">Gua Sha & Facial Self-Massage Guide</strong> (19 pages) as an immediate free gift. Two practical Traditional Chinese Medicine tools to boost your health and beauty naturally!
-          </p>
-
-          {/* MAIN PRODUCT: Digitopuncture Map */}
-          <div className="w-full max-w-xl bg-white rounded-3xl border border-sand-dark p-6 sm:p-8 shadow-xl mb-6 text-left">
-            <div className="inline-flex items-center gap-1 bg-emerald-700 text-white text-[10px] sm:text-xs font-black px-3 py-1 rounded-full uppercase tracking-widest mb-4">
-              EXCLUSIVE COMPANION
-            </div>
-            <h3 className="font-serif text-xl sm:text-2xl font-bold text-forest-dark mb-4 tracking-wide uppercase">
-              📍 Acupressure Point Map
-            </h3>
-
-            {/* Main Book Mockup Image - MATCHES EXACTLY THE MAIN HERO LAYOUT AND SIZES */}
-            <div className="relative max-w-sm mx-auto mb-6 group rounded-2xl overflow-hidden shadow-xl border-4 border-gray-100 transition-transform duration-500 hover:scale-[1.01] min-h-[180px] sm:min-h-[260px] flex items-center justify-center bg-sand-light/10" id="upsell-book-mockup-wrapper">
-              {/* Elegant Skeleton Loader */}
-              {!protocolImageLoaded && (
-                <div className="absolute inset-0 flex flex-col items-center justify-center bg-sand-light/40 animate-pulse">
-                  <div className="w-8 h-8 rounded-full border-4 border-emerald-300 border-t-emerald-600 animate-spin mb-2"></div>
-                  <span className="text-[10px] font-mono text-emerald-800 tracking-wider">Loading map...</span>
-                </div>
-              )}
-              <picture className={`w-full transition-opacity duration-700 ease-in-out ${protocolImageLoaded ? "opacity-100" : "opacity-0"}`}>
-                <source srcSet={protocolImgAvif} type="image/avif" />
-                <source srcSet={protocolImgWebp} type="image/webp" />
+          {/* COMPLETE TOOLKIT VISUAL HERO */}
+          <div className="w-full max-w-2xl mb-10 text-center">
+            <div className="relative max-w-xl mx-auto rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-sand-light/30">
+              <picture className="w-full">
+                <source srcSet={bundleImgAvif} type="image/avif" />
+                <source srcSet={bundleImgWebp} type="image/webp" />
                 <img
-                  src={protocolImgPng}
-                  alt="Acupressure Point Map"
+                  src={bundleImgWebp}
+                  alt="Essential Acupressure & Gua Sha Guides"
                   className="w-full h-auto object-cover"
                   referrerPolicy="no-referrer"
-                  onLoad={() => setProtocolImageLoaded(true)}
+                  loading="eager"
+                  id="upsell-toolkit-image"
                 />
               </picture>
             </div>
+          </div>
 
-            <div className="space-y-3.5 text-xs sm:text-sm text-gray-600">
-              <div className="flex items-start gap-2.5">
-                <span className="text-emerald-600 font-bold text-base shrink-0">✔</span>
-                <div>
-                  <strong className="text-forest-dark">Illustrated 18-Point Atlas:</strong> Exact anatomical location, detailed energetic function, and complete safety notes for each point.
-                </div>
+          {/* PRODUCT CARDS / SECTIONS */}
+          <div className="w-full max-w-2xl space-y-6 mb-10 text-left">
+            
+            {/* 1. Essential Acupressure Point Map */}
+            <div className="bg-white rounded-3xl border border-sand-dark p-6 sm:p-8 shadow-md">
+              <div className="inline-flex items-center gap-1.5 bg-emerald-700 text-white text-[10px] sm:text-xs font-black px-3.5 py-1.5 rounded-full uppercase tracking-widest mb-3 shadow-sm">
+                CORE RESOURCE
               </div>
-              
-              <div className="flex items-start gap-2.5">
-                <span className="text-emerald-600 font-bold text-base shrink-0">✔</span>
-                <div>
-                  <strong className="text-forest-dark">6 Complete Protocols:</strong> One for each imbalance pattern from the main manual, enabling direct external stimulation.
-                </div>
-              </div>
+              <h2 className="font-serif text-xl sm:text-2xl font-bold text-forest-dark mb-3">
+                Essential Acupressure Point Map
+              </h2>
 
-              <div className="flex items-start gap-2.5">
-                <span className="text-emerald-600 font-bold text-base shrink-0">✔</span>
-                <div>
-                  <strong className="text-forest-dark">Relief for Acute Situations:</strong> Quick protocols for headache, insomnia, anxiety, nausea, fatigue, menstrual cramps, and onset of colds.
+              <div className="space-y-2.5 text-xs sm:text-sm text-gray-700">
+                <div className="flex items-start gap-2.5">
+                  <span className="text-emerald-600 font-bold shrink-0">✓</span>
+                  <span>18 illustrated acupressure points</span>
                 </div>
-              </div>
-
-              <div className="flex items-start gap-2.5">
-                <span className="text-emerald-600 font-bold text-base shrink-0">✔</span>
-                <div>
-                  <strong className="text-forest-dark">Secure Lifetime Access:</strong> Digital downloadable format forever on your phone, tablet, or computer.
+                <div className="flex items-start gap-2.5">
+                  <span className="text-emerald-600 font-bold shrink-0">✓</span>
+                  <span>Traditional functions and safety guidance</span>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <span className="text-emerald-600 font-bold shrink-0">✓</span>
+                  <span>Six practical point sequences</span>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <span className="text-emerald-600 font-bold shrink-0">✓</span>
+                  <span>Downloadable digital format</span>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Plus sign */}
-          <div className="flex flex-col items-center justify-center my-4">
-            <span className="text-4xl font-black text-emerald-600 animate-bounce">+</span>
-          </div>
-
-          {/* FREE GIFT: Gua Sha Guide Card */}
-          <div className="w-full max-w-xl bg-[#09261a] text-white rounded-3xl border-2 border-emerald-800/40 p-6 sm:p-8 shadow-2xl mb-8 text-left">
-            {/* BADGE */}
-            <div className="inline-flex items-center gap-1.5 bg-emerald-500 text-white text-[10px] sm:text-xs font-black px-3.5 py-1.5 rounded-full uppercase tracking-widest mb-4 shadow-sm animate-pulse">
-              <Sparkles className="w-3.5 h-3.5" /> EXCLUSIVE GIFT INCLUDED 100% FREE!
-            </div>
-
-            <h3 className="font-serif text-xl sm:text-2xl font-bold text-white mb-1.5 tracking-wide uppercase">
-              🌸 Gua Sha & Facial Self-Massage Guide
-            </h3>
-            <p className="text-xs sm:text-sm text-emerald-200/90 italic mb-6 font-medium">
-              19 complete pages ready to download • At no additional cost
-            </p>
-
-            {/* Gua Sha Book Mockup Image */}
-            <div className="relative max-w-sm mx-auto mb-6 group rounded-2xl overflow-hidden shadow-xl border-4 border-emerald-900 transition-transform duration-500 hover:scale-[1.01] min-h-[180px] sm:min-h-[260px] flex items-center justify-center bg-emerald-950/20">
-              {!guashaImageLoaded && (
-                <div className="absolute inset-0 flex flex-col items-center justify-center bg-emerald-950/40 rounded-2xl animate-pulse">
-                  <div className="w-8 h-8 rounded-full border-4 border-emerald-300 border-t-emerald-600 animate-spin mb-2"></div>
-                  <span className="text-[10px] font-mono text-emerald-200 tracking-wider">Loading gift...</span>
-                </div>
-              )}
-              <picture className={`w-full transition-opacity duration-700 ease-in-out ${guashaImageLoaded ? "opacity-100" : "opacity-0"}`}>
-                <source srcSet={guashaImgAvif} type="image/avif" />
-                <source srcSet={guashaImgWebp} type="image/webp" />
-                <img 
-                  src={guashaImgAvif} 
-                  alt="Gua Sha and Facial Self-Massage Guide" 
-                  className="w-full h-auto object-cover"
-                  referrerPolicy="no-referrer"
-                  onLoad={() => setGuashaImageLoaded(true)}
-                />
-              </picture>
-            </div>
-
-            {/* Gua Sha Content List */}
-            <div className="space-y-3 text-xs sm:text-sm text-emerald-50/95">
-              <div className="flex items-start gap-2.5">
-                <span className="text-emerald-400 font-bold text-base shrink-0">✔</span>
-                <div>
-                  <strong className="text-white">Complete Core Technique:</strong> Exact angle, pressure, and practical alternatives using only your hands without buying anything.
-                </div>
+            {/* 2. FREE GIFT: Facial Gua Sha & Self-Massage Guide */}
+            <div className="bg-white rounded-3xl border border-sand-dark p-6 sm:p-8 shadow-md">
+              <div className="inline-flex items-center gap-1.5 bg-emerald-700 text-white text-[10px] sm:text-xs font-black px-3.5 py-1.5 rounded-full uppercase tracking-widest mb-3 shadow-sm">
+                <Sparkles className="w-3.5 h-3.5" /> FREE COMPANION GIFT
               </div>
+              <h2 className="font-serif text-xl sm:text-2xl font-bold text-forest-dark mb-3">
+                FREE GIFT: Facial Gua Sha &amp; Self-Massage Guide
+              </h2>
 
-              <div className="flex items-start gap-2.5">
-                <span className="text-emerald-400 font-bold text-base shrink-0">✔</span>
-                <div>
-                  <strong className="text-white">6-Zone Facial Map:</strong> Clear diagrams with stroke directions for neck, jawline, cheeks, eyes, forehead, and brow area.
+              <div className="space-y-2.5 text-xs sm:text-sm text-gray-700">
+                <div className="flex items-start gap-2.5">
+                  <span className="text-emerald-600 font-bold shrink-0">✓</span>
+                  <span>19 illustrated pages</span>
                 </div>
-              </div>
-
-              <div className="flex items-start gap-2.5">
-                <span className="text-emerald-400 font-bold text-base shrink-0">✔</span>
-                <div>
-                  <strong className="text-white">6 Pattern-Based Routines:</strong> Spleen (anti-inflammatory), Yang (warming), Yin (hydrating), Liver (jaw tension), Dampness (drainage), and Heat (cooling).
+                <div className="flex items-start gap-2.5">
+                  <span className="text-emerald-600 font-bold shrink-0">✓</span>
+                  <span>Fundamental technique and correct pressure</span>
                 </div>
-              </div>
-
-              <div className="flex items-start gap-2.5">
-                <span className="text-emerald-400 font-bold text-base shrink-0">✔</span>
-                <div>
-                  <strong className="text-white">Safety and Practice:</strong> Contraindications (active acne, fillers), common mistakes to avoid, suggested weekly schedule, and tracking journal.
+                <div className="flex items-start gap-2.5">
+                  <span className="text-emerald-600 font-bold shrink-0">✓</span>
+                  <span>Six-zone facial map</span>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <span className="text-emerald-600 font-bold shrink-0">✓</span>
+                  <span>Pattern-based routines and precautions</span>
                 </div>
               </div>
             </div>
+
           </div>
 
-          {/* BUNDLE PRICE DROP BANNER */}
-          <div className="w-full max-w-md bg-emerald-50 border-2 border-emerald-200 rounded-3xl p-4 sm:p-5 text-center mb-6 shadow-md">
-            <p className="text-[10px] sm:text-xs text-emerald-700 uppercase tracking-widest font-extrabold mb-1 animate-pulse">
-              💥 TWO MANUALS FOR THE PRICE OF ONE! 💥
-            </p>
-            <p className="text-[11px] text-emerald-800 font-semibold leading-relaxed">
-              Get the Acupressure Point Map now and receive the Facial Gua Sha Guide as an exclusive immediate gift. Risk-free with our 100% money-back guarantee!
-            </p>
+          {/* PRICE AND VALUE CALLOUT */}
+          <div className="w-full max-w-xl bg-white border-2 border-emerald-600/30 rounded-3xl p-6 sm:p-8 text-center mb-6 shadow-xl">
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-forest-dark mb-2">
+              Get Both Practical Guides for Only $5.90 USD
+            </h2>
+
+            <div className="text-lg sm:text-xl font-bold text-gray-700 mb-4">
+              <span className="line-through text-gray-400 mr-2">$9.90 USD</span>
+              <span className="text-emerald-700 font-extrabold">$5.90 USD</span>
+            </div>
+            
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 text-xs sm:text-sm text-gray-700 font-medium mb-6">
+              <span className="flex items-center gap-1.5">
+                <span className="text-emerald-600 font-bold">✓</span> Immediate digital access
+              </span>
+              <span className="flex items-center gap-1.5">
+                <span className="text-emerald-600 font-bold">✓</span> One-time payment
+              </span>
+              <span className="flex items-center gap-1.5">
+                <span className="text-emerald-600 font-bold">✓</span> Downloadable materials
+              </span>
+            </div>
+
+            {/* UPSELL CTA TITLE */}
+            <div className="text-xs font-mono font-bold tracking-widest text-emerald-800 uppercase mb-4">
+              YES — ADD BOTH GUIDES TO MY ORDER
+            </div>
+
+            {/* HOTMART SALES FUNNEL / UPSELL BUTTON */}
+            <HotmartSalesFunnel />
+
+            {/* HOTMART TRUST BAR */}
+            <div className="flex items-center justify-center gap-2 text-gray-500 text-xs mt-4">
+              <span>🔒 Secure purchase through Hotmart</span>
+              <span>·</span>
+              <span>⚡ Immediate access</span>
+            </div>
+
+            {/* DECLINE LINK */}
+            <div className="mt-6 pt-4 border-t border-gray-100">
+              <button
+                onClick={() => {
+                  window.location.href = "/thankyou";
+                }}
+                className="text-xs sm:text-sm text-gray-400 hover:text-gray-600 underline font-normal transition-colors cursor-pointer"
+              >
+                No, thank you. Continue without these additional guides.
+              </button>
+            </div>
+
           </div>
 
-          {/* HOTMART - Sales Funnel Widget */}
-          <HotmartSalesFunnel />
-
-          {/* Secure purchase icons */}
-          <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 mt-6 text-gray-400 text-[10px] sm:text-[11px] md:text-xs">
-            <span className="flex items-center gap-1">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" /> 100% Secure Purchase
-            </span>
-            <span className="hidden sm:inline text-gray-300">•</span>
-            <span className="flex items-center gap-1">
-              <Download className="w-3.5 h-3.5 text-emerald-600" /> Instant Download
-            </span>
-          </div>
-
-
+          {/* MEDICAL DISCLAIMER */}
+          <p className="text-[11px] text-gray-500 max-w-xl mx-auto italic mt-2 leading-relaxed">
+            *Educational material that does not replace medical diagnosis or personalised advice from a qualified healthcare professional.*
+          </p>
 
         </div>
 
