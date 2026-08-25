@@ -26,6 +26,10 @@ import MovementTabs from "./components/MovementTabs";
 import FAQAccordion from "./components/FAQAccordion";
 import HotmartSalesFunnel from "./components/HotmartSalesFunnel";
 
+// Hero section book mockup image
+const heroImgAvif = "https://res.cloudinary.com/dgncwrnvw/image/upload/v1787247786/ChatGPT_Image_20_ago_2026_14_41_15_1_br8pkb.avif";
+const heroImgWebp = "https://res.cloudinary.com/dgncwrnvw/image/upload/v1787247786/ChatGPT_Image_20_ago_2026_14_41_15_1_rjxjb2.webp";
+
 // Import generated book bundle image (optimized with AVIF and WebP formats for upsell)
 const bundleImgAvif = "https://res.cloudinary.com/dgncwrnvw/image/upload/v1787598004/ChatGPT_Image_24_ago_2026_15_03_23_bdkh6l.avif";
 const bundleImgWebp = "https://res.cloudinary.com/dgncwrnvw/image/upload/v1787598004/ChatGPT_Image_24_ago_2026_15_03_23_wxbqyh.webp";
@@ -152,7 +156,7 @@ export default function App() {
     const link = document.createElement("link");
     link.rel = "preload";
     link.as = "image";
-    link.href = bundleImgAvif;
+    link.href = heroImgAvif;
     document.head.appendChild(link);
 
     // Preload for the protocol image (upsell/downsell page) so it's fully cached when needed
@@ -170,7 +174,7 @@ export default function App() {
     document.head.appendChild(linkGuasha);
 
     const img = new Image();
-    img.src = bundleImgAvif;
+    img.src = heroImgAvif;
     if (img.complete) {
       setHeroImageLoaded(true);
     } else {
@@ -479,13 +483,13 @@ export default function App() {
 
           {/* MAIN HEADLINE & SUBHEAD */}
           <h1 className="font-serif text-2xl sm:text-3xl md:text-5xl text-forest-dark tracking-tight leading-tight mb-4 font-bold px-2">
-            Wait — Would You Prefer a Smaller Option?
+            Before You Go, Complete Your Practical Toolkit
           </h1>
           <p className="text-gray-700 text-sm sm:text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
-            If you do not need the complete toolkit, you can still add the <strong className="text-forest-dark font-bold">Essential Acupressure Point Map</strong> and receive the <strong className="text-emerald-800 font-bold">Facial Gua Sha &amp; Self-Massage Guide</strong> as a complimentary gift.
+            Add the <strong className="text-forest-dark font-bold">Essential Acupressure Point Map</strong> and receive <strong className="text-emerald-800 font-bold">two exclusive companion guides</strong> at no additional cost.
           </p>
 
-          {/* COMPLETE TOOLKIT VISUAL HERO */}
+          {/* BUNDLE IMAGE */}
           <div className="w-full max-w-2xl mb-10 text-center">
             <div className="relative max-w-xl mx-auto rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-sand-light/30">
               <picture className="w-full">
@@ -493,7 +497,7 @@ export default function App() {
                 <source srcSet={bundleImgWebp} type="image/webp" />
                 <img
                   src={bundleImgWebp}
-                  alt="Essential Acupressure & Gua Sha Guides"
+                  alt="Complete Practical Toolkit Bundle"
                   className="w-full h-auto object-cover"
                   referrerPolicy="no-referrer"
                   loading="eager"
@@ -508,92 +512,69 @@ export default function App() {
             
             {/* 1. Essential Acupressure Point Map */}
             <div className="bg-white rounded-3xl border border-sand-dark p-6 sm:p-8 shadow-md">
-              <div className="inline-flex items-center gap-1.5 bg-emerald-700 text-white text-[10px] sm:text-xs font-black px-3.5 py-1.5 rounded-full uppercase tracking-widest mb-3 shadow-sm">
-                CORE RESOURCE
-              </div>
-              <h2 className="font-serif text-xl sm:text-2xl font-bold text-forest-dark mb-3">
-                Essential Acupressure Point Map
+              <h2 className="font-serif text-xl sm:text-2xl font-bold text-forest-dark mb-2">
+                1. Essential Acupressure Point Map
               </h2>
-
-              <div className="space-y-2.5 text-xs sm:text-sm text-gray-700">
-                <div className="flex items-start gap-2.5">
-                  <span className="text-emerald-600 font-bold shrink-0">✓</span>
-                  <span>18 illustrated acupressure points</span>
-                </div>
-                <div className="flex items-start gap-2.5">
-                  <span className="text-emerald-600 font-bold shrink-0">✓</span>
-                  <span>Traditional functions and safety guidance</span>
-                </div>
-                <div className="flex items-start gap-2.5">
-                  <span className="text-emerald-600 font-bold shrink-0">✓</span>
-                  <span>Six practical point sequences</span>
-                </div>
-                <div className="flex items-start gap-2.5">
-                  <span className="text-emerald-600 font-bold shrink-0">✓</span>
-                  <span>Downloadable digital format</span>
-                </div>
-              </div>
+              <p className="text-xs sm:text-sm text-gray-700 mb-2 leading-relaxed">
+                <strong className="text-forest-dark font-semibold">18 illustrated points and six practical sequences</strong> organised around the patterns covered in your Chinese Diet Therapy Manual.
+              </p>
+              <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                Quickly consult point locations, traditional functions and essential safety guidance without relying entirely on memory.
+              </p>
             </div>
 
             {/* 2. FREE GIFT: Facial Gua Sha & Self-Massage Guide */}
             <div className="bg-white rounded-3xl border border-sand-dark p-6 sm:p-8 shadow-md">
-              <div className="inline-flex items-center gap-1.5 bg-emerald-700 text-white text-[10px] sm:text-xs font-black px-3.5 py-1.5 rounded-full uppercase tracking-widest mb-3 shadow-sm">
-                <Sparkles className="w-3.5 h-3.5" /> FREE COMPANION GIFT
-              </div>
               <h2 className="font-serif text-xl sm:text-2xl font-bold text-forest-dark mb-3">
-                FREE GIFT: Facial Gua Sha &amp; Self-Massage Guide
+                2. FREE GIFT: Facial Gua Sha &amp; Self-Massage Guide
               </h2>
+              <p className="text-xs sm:text-sm text-gray-700 leading-relaxed">
+                A <strong className="text-forest-dark font-semibold">19-page illustrated guide</strong> covering fundamental techniques, six facial zones, pattern-based routines and important precautions.
+              </p>
+            </div>
 
+            {/* 3. FREE GIFT: 21-Day Chinese Diet Therapy Protocol */}
+            <div className="bg-white rounded-3xl border border-sand-dark p-6 sm:p-8 shadow-md">
+              <h2 className="font-serif text-xl sm:text-2xl font-bold text-forest-dark mb-3">
+                3. FREE GIFT: 21-Day Chinese Diet Therapy Protocol
+              </h2>
+              <p className="text-xs sm:text-sm text-gray-700 mb-4 leading-relaxed">
+                A complete <strong className="text-forest-dark font-semibold">150-page implementation guide</strong> featuring:
+              </p>
               <div className="space-y-2.5 text-xs sm:text-sm text-gray-700">
                 <div className="flex items-start gap-2.5">
                   <span className="text-emerald-600 font-bold shrink-0">✓</span>
-                  <span>19 illustrated pages</span>
+                  <span>Day-by-day meal plans for six traditional patterns</span>
                 </div>
                 <div className="flex items-start gap-2.5">
                   <span className="text-emerald-600 font-bold shrink-0">✓</span>
-                  <span>Fundamental technique and correct pressure</span>
+                  <span>Weekly shopping lists and practical recipes</span>
                 </div>
                 <div className="flex items-start gap-2.5">
                   <span className="text-emerald-600 font-bold shrink-0">✓</span>
-                  <span>Six-zone facial map</span>
+                  <span>Combined-pattern adaptations</span>
                 </div>
                 <div className="flex items-start gap-2.5">
                   <span className="text-emerald-600 font-bold shrink-0">✓</span>
-                  <span>Pattern-based routines and precautions</span>
+                  <span>Printable check-ins and preparation guidance</span>
                 </div>
               </div>
             </div>
 
           </div>
 
+          {/* GO FROM THEORY TO PRACTICAL APPLICATION */}
+          <div className="w-full max-w-2xl bg-amber-50/80 border border-amber-200 rounded-3xl p-6 sm:p-8 mb-10 text-center">
+            <h2 className="font-serif text-xl sm:text-2xl font-bold text-forest-dark mb-3">
+              Go from Theory to Practical Application
+            </h2>
+            <p className="text-xs sm:text-sm md:text-base text-gray-700 leading-relaxed">
+              Use the main manual to understand the pattern, the Acupressure Map to consult complementary points and the 21-Day Protocol to organise the dietary plan.
+            </p>
+          </div>
+
           {/* PRICE AND VALUE CALLOUT */}
           <div className="w-full max-w-xl bg-white border-2 border-emerald-600/30 rounded-3xl p-6 sm:p-8 text-center mb-6 shadow-xl">
-            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-forest-dark mb-2">
-              Get Both Practical Guides for Only $5.90 USD
-            </h2>
-
-            <div className="text-lg sm:text-xl font-bold text-gray-700 mb-4">
-              <span className="line-through text-gray-400 mr-2">$9.90 USD</span>
-              <span className="text-emerald-700 font-extrabold">$5.90 USD</span>
-            </div>
-            
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 text-xs sm:text-sm text-gray-700 font-medium mb-6">
-              <span className="flex items-center gap-1.5">
-                <span className="text-emerald-600 font-bold">✓</span> Immediate digital access
-              </span>
-              <span className="flex items-center gap-1.5">
-                <span className="text-emerald-600 font-bold">✓</span> One-time payment
-              </span>
-              <span className="flex items-center gap-1.5">
-                <span className="text-emerald-600 font-bold">✓</span> Downloadable materials
-              </span>
-            </div>
-
-            {/* UPSELL CTA TITLE */}
-            <div className="text-xs font-mono font-bold tracking-widest text-emerald-800 uppercase mb-4">
-              YES — ADD BOTH GUIDES TO MY ORDER
-            </div>
-
             {/* HOTMART SALES FUNNEL / UPSELL BUTTON */}
             <HotmartSalesFunnel />
 
@@ -603,19 +584,6 @@ export default function App() {
               <span>·</span>
               <span>⚡ Immediate access</span>
             </div>
-
-            {/* DECLINE LINK */}
-            <div className="mt-6 pt-4 border-t border-gray-100">
-              <button
-                onClick={() => {
-                  window.location.href = "/thankyou";
-                }}
-                className="text-xs sm:text-sm text-gray-400 hover:text-gray-600 underline font-normal transition-colors cursor-pointer"
-              >
-                No, thank you. Continue without these additional guides.
-              </button>
-            </div>
-
           </div>
 
           {/* MEDICAL DISCLAIMER */}
@@ -676,10 +644,10 @@ export default function App() {
               </div>
             )}
             <picture className={`w-full transition-opacity duration-700 ease-in-out ${heroImageLoaded ? "opacity-100" : "opacity-0"}`}>
-              <source srcSet={bundleImgAvif} type="image/avif" />
-              <source srcSet={bundleImgWebp} type="image/webp" />
+              <source srcSet={heroImgAvif} type="image/avif" />
+              <source srcSet={heroImgWebp} type="image/webp" />
               <img
-                src={bundleImgPng}
+                src={heroImgWebp}
                 alt="Chinese Diet Therapy professional guide"
                 className="w-full h-auto object-cover"
                 referrerPolicy="no-referrer"

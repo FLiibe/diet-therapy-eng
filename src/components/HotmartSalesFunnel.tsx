@@ -14,12 +14,11 @@ export default function HotmartSalesFunnel() {
   const initialized = useRef(false);
 
   useEffect(() => {
-    // If we've already initialized in this mount, do nothing
-    if (initialized.current) return;
+    let checkInterval: NodeJS.Timeout | null = null;
 
     const loadAndInitWidget = () => {
       try {
-        if (window.checkoutElements) {
+        if (window.checkoutElements && document.getElementById("hotmart-sales-funnel")) {
           window.checkoutElements.init("salesFunnel").mount("#hotmart-sales-funnel");
           initialized.current = true;
         }
@@ -30,8 +29,11 @@ export default function HotmartSalesFunnel() {
 
     // If script is already loaded and checkoutElements is available, initialize immediately
     if (window.checkoutElements) {
-      loadAndInitWidget();
-      return;
+      // Short delay to ensure DOM element #hotmart-sales-funnel is rendered
+      const timer = setTimeout(() => {
+        loadAndInitWidget();
+      }, 50);
+      return () => clearTimeout(timer);
     }
 
     // Check if script is already present in document
@@ -48,16 +50,18 @@ export default function HotmartSalesFunnel() {
       };
       document.body.appendChild(script);
     } else {
-      // Script exists but is still loading, wait until window.checkoutElements becomes available
-      const checkInterval = setInterval(() => {
+      // Script exists but is loading, wait until window.checkoutElements becomes available
+      checkInterval = setInterval(() => {
         if (window.checkoutElements) {
-          clearInterval(checkInterval);
+          if (checkInterval) clearInterval(checkInterval);
           loadAndInitWidget();
         }
       }, 100);
-
-      return () => clearInterval(checkInterval);
     }
+
+    return () => {
+      if (checkInterval) clearInterval(checkInterval);
+    };
   }, []);
 
   return (
